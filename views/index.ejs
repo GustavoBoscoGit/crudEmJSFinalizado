@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lista de Compra</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <h1>Listagem dos produtos</h1>
+    <p>Produtos ja cadastrados</p>
+
+    <table>
+      <thead>
+        <tr style="background-color: #ccc">
+          <td>Nome Produto</td>
+          <td>Preço Produto</td>
+          <td>Tipo Produto</td>
+          <td>Ações</td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% if (!registros || registros.length == 0 ){ %>
+        <tr>
+          <td colspan="4">Nenhum registro cadastrado</td>
+        </tr>
+        <% } else { registros.forEach(function(produto){ %>
+        <tr>
+          <td><%= produto.prodNome%></td>
+          <td>R$ <%= produto.prodPreco%></td>
+          <td><%= produto.itemCod%></td>
+          <td>
+            <a href="/alteraProduto/<%= produto.prodCod%>">Alterar</a> |
+            <a href="/apagaProduto/<%= produto.prodCod%>" onclick="return confirm('Confirma exclusão?');">Apagar</a>
+          </td>
+        </tr>
+        <% })} %>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan="4">
+            <br />
+            <a href="/adicionarProduto">Adicionar produto</a>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </body>
+</html>

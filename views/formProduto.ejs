@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Adicionar produto</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <h1><%= titulo %></h1>
+    <p>Preencha os dados abaixo e clique em salvar</p>
+
+    <form action="<%=acao%>" method="POST">
+      <table>
+        <tr>
+          <td>Nome</td>
+          <td><input name="edtNome" value="<%= produto.prodNome %>"/></td>
+        </tr>
+        <tr>
+          <td>Preço</td>
+          <td><input name="edtPreco" value="<%= produto.prodPreco %>"/></td>
+        </tr>
+        <tr>
+          <td>Tipo</td>
+          <td>
+            <select name="selTipo">
+              <option value="1" <% if (produto.itemCod==1) { %> selected <% } %> >Limpeza</option>
+              <option value="2" <% if (produto.itemCod==2) { %> selected <% } %> >Higiene pessoal</option>
+              <option value="3" <% if (produto.itemCod==3) { %> selected <% } %> >Alimenticio</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><a href="/">Cancelar</a></td>
+          <td><input type="submit" value="Salvar"/></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

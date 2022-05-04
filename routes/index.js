@@ -3,10 +3,35 @@ var router = express.Router();
 
 /* GET home page. */
 router.get("/", async function (req, res, next) {
-  const registros = await global.db.listarProdutos();
 
-  res.render("index", { registros });
+    if(!global.usuario || global.usuario == 0){
+      res.redirect('/login')
+    }
+
+    const registros = await global.db.listarProdutos();
+
+    res.render("index", { registros });
+
 });
+
+router.get('/sair', function(req, res){
+  global.usuario = 0;
+  res.redirect('/')
+})
+
+router.get('/login', function(req, res){
+  res.render('login')
+})
+
+router.post('/login', async function(req,res){
+  const usuario = req.body.edtUser
+  const senha = req.body.edtPassword
+
+  const user = await global.db.buscarUsuario({usuario, senha});
+
+  global.usuario = user.userCod;
+  res.redirect('/')
+})
 
 router.get("/adicionarProduto", function (req, res) {
   res.render("formProduto", { titulo: "Adicionar Produto", acao: "/adicionarProduto", produto:{} });

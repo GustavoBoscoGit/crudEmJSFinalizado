@@ -50,4 +50,11 @@ async function alterarProduto(produto){
   conexao.query(sql, [produto.nome, produto.preco, produto.tipo, produto.codigo])
 }
 
-module.exports = { listarProdutos, insertProduto, apagarProduto, recuperarProduto, alterarProduto };
+async function buscarUsuario(usuarioLogin){
+  const conexao = await conectarDB();
+  const sql = "select * from usuarios where userLogin=? and userPassword=?;"
+  const [user] = await conexao.query(sql,[usuarioLogin.usuario, usuarioLogin.senha]);
+  return user[0];
+}
+
+module.exports = { listarProdutos, insertProduto, apagarProduto, recuperarProduto, alterarProduto, buscarUsuario };
